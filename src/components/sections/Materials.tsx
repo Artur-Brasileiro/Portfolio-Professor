@@ -29,11 +29,11 @@ const materials = [
   },
   {
     icon: Book,
-    title: 'Aula sobre phrasal verbs',
-    description: 'Os phrasal verbs mais usados no dia a dia, com exemplos práticos e exercícios.',
-    objective: 'Dominar expressões essenciais do inglês falado',
-    audience: 'Intermediário',
-    usage: 'Aula de 50 minutos + exercícios',
+    title: 'Jogos diários de inglês',
+    description: 'Atividades rápidas e divertidas para treinar um pouco todos os dias e evoluir com consistência.',
+    objective: 'Criar hábito e melhorar o inglês na prática',
+    audience: 'Todos os níveis',
+    usage: '5-15 minutos por dia',
   },
   {
     icon: Briefcase,
