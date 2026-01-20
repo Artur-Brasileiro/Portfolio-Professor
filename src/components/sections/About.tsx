@@ -48,14 +48,13 @@ export function About() {
             }`}
           >
             <p>
-              Olá! Sou <strong className="text-foreground">Rodrigo Almeida</strong>, instrutor de inglês e estudante de 
-              Letras com mais de <strong className="text-foreground">4 anos de experiência</strong>. 
-              Atuo focando não apenas na gramática e sintaxe, mas também nas nuances culturais que fazem você entender o idioma de verdade.
+              Olá! Sou <strong className="text-foreground">Rodrigo Almeida</strong>, instrutor de inglês e estudante de Letras, com mais de <strong className="text-foreground">4 anos de experiência</strong> ajudando alunos a evoluírem com clareza e segurança.
             </p>
             <p>
-              Minha formação em Literatura Inglesa e minha experiência em ensino na Aliança América me permitem 
-              criar aulas detalhadas e organizadas. Tenho facilidade com ferramentas digitais e pesquisa, 
-              o que garante um material sempre atualizado com as tendências e notícias mais recentes.
+              Meu ensino vai além de <strong className="text-foreground">"decorar regras"</strong>: eu trabalho gramática e sintaxe de forma organizada, sempre conectando o conteúdo ao uso real do idioma — com atenção às nuances culturais que fazem diferença na compreensão e na comunicação.
+            </p>
+            <p>
+              Também tenho facilidade com ferramentas digitais e pesquisa, o que me permite criar aulas bem estruturadas e materiais atualizados, alinhados com situações do dia a dia, temas atuais e objetivos específicos de cada aluno.
             </p>
           </div>
         </div>
