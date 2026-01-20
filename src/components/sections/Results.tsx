@@ -4,7 +4,7 @@ import { Users, Clock, Calendar, Quote } from 'lucide-react';
 const metrics = [
   { icon: Users, value: '+200', label: 'alunos' },
   { icon: Clock, value: '+5.000', label: 'horas de aula' },
-  { icon: Calendar, value: '[X]', label: 'anos ensinando' },
+  { icon: Calendar, value: '[4]', label: 'anos ensinando' },
 ];
 
 const testimonials = [

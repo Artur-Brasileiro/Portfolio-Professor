@@ -97,17 +97,14 @@ export function Hero() {
             {/* Media Display */}
             <div className="relative aspect-video rounded-2xl overflow-hidden bg-muted shadow-2xl">
               {mediaType === 'video' ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-muted to-accent p-8 text-center">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <Play size={32} className="text-primary ml-1" />
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Embed de vídeo (YouTube/Vimeo)
-                  </p>
-                  <code className="text-xs bg-background/50 px-3 py-1.5 rounded-full text-muted-foreground">
-                    [link do vídeo]
-                  </code>
-                </div>
+                <iframe
+                  className="absolute inset-0 h-full w-full"
+                  src="https://www.youtube.com/embed/PxzTIOpvNow"
+                  title="Apresentacao do professor"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               ) : (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-muted to-accent p-8 text-center">
                   <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center mb-4">
