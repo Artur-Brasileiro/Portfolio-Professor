@@ -22,14 +22,12 @@ export function About() {
     <section
       id="sobre"
       ref={ref}
-      // Mudado para bg-zinc-900 (Preto/Cinza Escuro)
       className="relative overflow-hidden bg-zinc-900 text-zinc-100"
     >
       {/* Conteúdo */}
       <div className="container-custom py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center mb-14">
           <h2
-            // Título Branco
             className={`font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-6 text-white transition-all duration-700 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
@@ -38,7 +36,6 @@ export function About() {
           </h2>
 
           <div
-            // Texto cinza claro (zinc-300) para leitura confortável no fundo escuro
             className={`space-y-4 text-lg text-zinc-300 transition-all duration-700 delay-100 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
@@ -79,13 +76,10 @@ export function About() {
             {values.map((value, index) => (
               <div
                 key={value.title}
-                // Cards escuros (zinc-800/50) com borda sutil
                 className="rounded-2xl border border-zinc-700/50 bg-zinc-800/30 backdrop-blur-sm p-7 text-center shadow-lg hover:bg-zinc-800/50 transition-colors"
               >
-                {/* Círculo do número: Fundo vermelho bem transparente */}
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 border border-primary/20">
                   <span
-                    // Número Vermelho
                     className="text-2xl font-display font-semibold text-primary"
                   >
                     {index + 1}
@@ -103,15 +97,18 @@ export function About() {
         </div>
       </div>
 
-      {/* Onda no final - Mantém branca para conectar com a próxima seção clara */}
-      <div className="absolute left-0 right-0 bottom-0 w-full leading-none">
+      {/* CORREÇÃO AQUI: 
+         Mudei 'bottom-0' para '-bottom-[1px]'.
+         Isso força o SVG a descer 1 pixel, cobrindo qualquer falha de renderização do fundo preto.
+      */}
+      <div className="absolute left-0 right-0 -bottom-[1px] w-full leading-none z-10">
         <svg
           viewBox="0 0 1440 120"
-          className="block w-full h-[70px] md:h-[90px] drop-shadow-[0_-10px_18px_rgba(0,0,0,0.3)]" // Sombra ajustada para o fundo escuro
+          className="block w-full h-[70px] md:h-[90px] drop-shadow-[0_-10px_18px_rgba(0,0,0,0.3)]"
           preserveAspectRatio="none"
         >
           <path
-            fill="#ffffff"
+            fill="#ffffff" // A próxima seção é branca (zinc-50), então a onda é branca
             d="
               M0,64
               C30,88 60,88 90,64

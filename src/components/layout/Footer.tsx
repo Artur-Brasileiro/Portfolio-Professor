@@ -8,7 +8,7 @@ export function Footer() {
           </h3>
 
           <p className="text-background/70 text-sm leading-relaxed">
-            Instrutor de inglês focado em gramática, sintaxe e contexto cultural
+            Instrutor de inglês focado em conversação e destravar seu potencial no idioma
             <span className="hidden sm:inline"> </span>
             <span className="block sm:inline">
               — Aulas online para todo o Brasil

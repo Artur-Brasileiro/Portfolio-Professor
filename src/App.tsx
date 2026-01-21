@@ -2,7 +2,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// MUDANÇA AQUI: Trocamos BrowserRouter por HashRouter
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -14,14 +13,16 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      {/* MUDANÇA AQUI: Usando HashRouter */}
-      <HashRouter>
+      
+      {/* ADICIONADO AQUI: A prop 'future' para remover os avisos amarelos */}
+      <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
+
     </TooltipProvider>
   </QueryClientProvider>
 );
