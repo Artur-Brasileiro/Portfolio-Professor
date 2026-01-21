@@ -12,7 +12,7 @@ const faqs = [
   {
     question: 'As aulas são online ou presenciais?',
     answer:
-      'As aulas são 100% online, via Google Meet ou Zoom. Isso permite flexibilidade de horários e você pode ter aula de qualquer lugar. Se você está em [cidade] e prefere aulas presenciais, podemos conversar sobre essa possibilidade.',
+      'As aulas são 100% online, via Google Meet ou Zoom. Isso permite flexibilidade de horários e você pode ter aula de qualquer lugar. Se você está em Venturosa-PE e prefere aulas presenciais, podemos conversar sobre essa possibilidade.',
   },
   {
     question: 'Quanto tempo até eu destravar a fala?',
