@@ -22,37 +22,35 @@ export function About() {
     <section
       id="sobre"
       ref={ref}
-      className="relative overflow-hidden"
-      style={{
-        backgroundColor: '#8B5E34', // marrom (pode trocar)
-      }}
+      // Mudado para bg-zinc-900 (Preto/Cinza Escuro)
+      className="relative overflow-hidden bg-zinc-900 text-zinc-100"
     >
       {/* Conteúdo */}
       <div className="container-custom py-20 md:py-24">
         <div className="max-w-3xl mx-auto text-center mb-14">
           <h2
-            className={`font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-6 transition-all duration-700 ${
+            // Título Branco
+            className={`font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-6 text-white transition-all duration-700 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
-            style={{ color: '#FFF3C4' }} // amarelinho do título
           >
             Sobre mim
           </h2>
 
           <div
-            className={`space-y-4 text-lg transition-all duration-700 delay-100 ${
+            // Texto cinza claro (zinc-300) para leitura confortável no fundo escuro
+            className={`space-y-4 text-lg text-zinc-300 transition-all duration-700 delay-100 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
-            style={{ color: 'rgba(255,255,255,0.92)' }}
           >
             <p>
-              Olá! Sou <strong className="text-white">Rodrigo Almeida</strong>, instrutor de inglês e estudante de Letras,
-              com mais de <strong className="text-white">4 anos de experiência</strong> ajudando alunos a evoluírem com
+              Olá! Sou <strong className="text-primary font-bold">Rodrigo Almeida</strong>, instrutor de inglês e estudante de Letras,
+              com mais de <strong className="text-primary font-bold">4 anos de experiência</strong> ajudando alunos a evoluírem com
               clareza e segurança.
             </p>
 
             <p>
-              Meu ensino vai além de <strong className="text-white">"decorar regras"</strong>: eu trabalho gramática e
+              Meu ensino vai além de <strong className="text-primary font-bold">"decorar regras"</strong>: eu trabalho gramática e
               sintaxe de forma organizada, sempre conectando o conteúdo ao uso real do idioma — com atenção às nuances
               culturais que fazem diferença na compreensão e na comunicação.
             </p>
@@ -72,8 +70,7 @@ export function About() {
           }`}
         >
           <h3
-            className="font-display text-2xl sm:text-3xl font-medium text-center mb-10"
-            style={{ color: '#FFF3C4' }}
+            className="font-display text-2xl sm:text-3xl font-medium text-center mb-10 text-white"
           >
             Valores de ensino
           </h3>
@@ -82,12 +79,14 @@ export function About() {
             {values.map((value, index) => (
               <div
                 key={value.title}
-                className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm p-7 text-center shadow-sm"
+                // Cards escuros (zinc-800/50) com borda sutil
+                className="rounded-2xl border border-zinc-700/50 bg-zinc-800/30 backdrop-blur-sm p-7 text-center shadow-lg hover:bg-zinc-800/50 transition-colors"
               >
-                <div className="w-12 h-12 rounded-full bg-white/15 flex items-center justify-center mx-auto mb-4">
+                {/* Círculo do número: Fundo vermelho bem transparente */}
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 border border-primary/20">
                   <span
-                    className="text-2xl font-display font-semibold"
-                    style={{ color: '#FFF3C4' }}
+                    // Número Vermelho
+                    className="text-2xl font-display font-semibold text-primary"
                   >
                     {index + 1}
                   </span>
@@ -97,18 +96,18 @@ export function About() {
                   {value.title}
                 </h4>
 
-                <p className="text-white/90">{value.description}</p>
+                <p className="text-zinc-400">{value.description}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Onda no final */}
+      {/* Onda no final - Mantém branca para conectar com a próxima seção clara */}
       <div className="absolute left-0 right-0 bottom-0 w-full leading-none">
         <svg
           viewBox="0 0 1440 120"
-          className="block w-full h-[70px] md:h-[90px] drop-shadow-[0_-10px_18px_rgba(0,0,0,0.18)]"
+          className="block w-full h-[70px] md:h-[90px] drop-shadow-[0_-10px_18px_rgba(0,0,0,0.3)]" // Sombra ajustada para o fundo escuro
           preserveAspectRatio="none"
         >
           <path

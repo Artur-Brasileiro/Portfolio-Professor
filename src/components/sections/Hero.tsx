@@ -18,25 +18,37 @@ export function Hero() {
       {/* Mesmo envelope do header */}
       <div className="px-4 pt-4">
         <div className="max-w-6xl mx-auto">
-          {/* Card direto (sem borda externa e sem espaço branco) */}
-          <div className="rounded-[22px] bg-[#FBF6D8] p-6 sm:p-8 lg:p-10">
+          {/* Card direto: Mudado de Bege (#FBF6D8) para Cinza Suave (zinc-50) com borda */}
+          <div className="rounded-[22px] bg-zinc-50 border border-zinc-200/60 p-6 sm:p-8 lg:p-10">
             <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
               {/* ESQUERDA */}
               <div className="text-center lg:text-left">
-                <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight text-[#6B4E2E]">
+                {/* Título: Mudado de Marrom (#6B4E2E) para Preto (zinc-900) */}
+                <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight text-zinc-900">
                   Aprenda inglês de um jeito{' '}
-                  <span className="text-[#FF6B6B]">leve e direto ao ponto.</span>
+                  {/* Destaque: Mudado de Rosa (#FF6B6B) para Primary (Vermelho) */}
+                  <span className="text-primary">leve e direto ao ponto.</span>
                 </h1>
 
-                <p className="mt-6 text-lg sm:text-xl text-zinc-700 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="mt-6 text-lg sm:text-xl text-zinc-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                   Aulas focadas em conversação, confiança e resultados reais — do básico ao avançado.
                 </p>
 
                 <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button variant="hero" onClick={() => scrollToSection('#contato')}>
+                  {/* Botão Principal: Vermelho (Primary) */}
+                  <Button 
+                    className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 font-bold font-montserrat text-base shadow-sm"
+                    onClick={() => scrollToSection('#contato')}
+                  >
                     Agendar aula experimental
                   </Button>
-                  <Button variant="heroOutline" onClick={() => scrollToSection('#metodologia')}>
+                  
+                  {/* Botão Secundário: Branco com borda (Outline) */}
+                  <Button 
+                    variant="outline"
+                    className="rounded-xl border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 h-12 px-8 font-bold font-montserrat text-base"
+                    onClick={() => scrollToSection('#metodologia')}
+                  >
                     Ver metodologia
                   </Button>
                 </div>
@@ -44,7 +56,11 @@ export function Hero() {
                 {/* Highlights */}
                 <div className="mt-10 flex flex-wrap gap-3 justify-center lg:justify-start">
                   {highlights.map((item) => (
-                    <div key={item.label} className="chip flex items-center gap-2">
+                    <div 
+                      key={item.label} 
+                      // Chips agora são brancos para contrastar com o fundo cinza do card
+                      className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-white border border-zinc-200 text-zinc-700 shadow-sm"
+                    >
                       <item.icon size={16} className="text-primary" />
                       <span>{item.label}</span>
                     </div>
@@ -55,9 +71,9 @@ export function Hero() {
               {/* DIREITA */}
               <div className="flex justify-center lg:justify-end">
                 <div className="w-full max-w-[520px]">
-                  {/* Moldura da foto (pode manter, não é borda do card) */}
-                  <div className="rounded-[24px] bg-white/60 p-2 sm:p-3">
-                    <div className="relative overflow-hidden rounded-[20px] aspect-[4/5] sm:aspect-[5/6] bg-zinc-200">
+                  {/* Moldura da foto: Branca com sombra suave */}
+                  <div className="rounded-[24px] bg-white p-2 sm:p-3 shadow-sm border border-zinc-100">
+                    <div className="relative overflow-hidden rounded-[20px] aspect-[4/5] sm:aspect-[5/6] bg-zinc-100">
                       <img
                         src="professor.jpg"
                         alt="Professor"
