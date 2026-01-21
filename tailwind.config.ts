@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Playfair Display', 'Georgia', 'serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Calistoga', 'Georgia', 'serif'],
+        body: ['Calistoga', 'Georgia', 'serif'],
+        montserrat: ['Montserrat', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -86,8 +87,9 @@ export default {
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        // Mudei de 0.2s para 0.3s aqui:
+        "accordion-down": "accordion-down 0.3s ease-out", 
+        "accordion-up": "accordion-up 0.3s ease-out",
         "fade-up": "fade-up 0.6s ease-out forwards",
         "fade-in": "fade-in 0.6s ease-out forwards",
       },

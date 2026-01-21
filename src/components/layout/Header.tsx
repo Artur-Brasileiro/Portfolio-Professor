@@ -3,13 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { href: '#inicio', label: 'Início' },
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#metodologia', label: 'Metodologia' },
-  { href: '#aulas', label: 'Aulas' },
-  { href: '#resultados', label: 'Resultados' },
-  { href: '#materiais', label: 'Materiais' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '#inicio', label: 'Home' },
+  { href: '#sobre', label: 'Sobre mim' },
+  { href: '#faq', label: 'Dúvidas' },
   { href: '#contato', label: 'Contato' },
 ];
 
@@ -18,9 +14,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -28,97 +22,103 @@ export function Header() {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileMenuOpen(false);
+  };
+
+  const goContato = () => {
+    const element = document.querySelector('#contato');
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/95 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container-custom">
-        <nav className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <a
-            href="#inicio"
-            onClick={(e) => handleNavClick(e, '#inicio')}
-            className="font-display text-xl md:text-2xl font-semibold text-foreground hover:text-primary transition-colors"
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="px-4 pt-4">
+        <div className="max-w-6xl mx-auto">
+          <div
+            className={[
+              'flex items-center justify-between',
+              'h-14 md:h-16',
+              'rounded-2xl border',
+              'bg-white',
+              'px-5 md:px-6',
+              'transition-all duration-300',
+              isScrolled ? 'shadow-sm border-zinc-200' : 'shadow-none border-zinc-200',
+            ].join(' ')}
           >
-            RODRIGO ALMEIDA
-          </a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors link-underline"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA Button - Desktop */}
-          <div className="hidden lg:block">
-            <Button
-              size="sm"
-              onClick={() => {
-                const element = document.querySelector('#contato');
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-              }}
+            {/* Logo */}
+            <a
+              href="#inicio"
+              onClick={(e) => handleNavClick(e, '#inicio')}
+              className="text-lg md:text-xl font-semibold tracking-tight text-amber-900 hover:opacity-90"
+              style={{ fontFamily: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif' }}
             >
-              Agendar aula
-            </Button>
-          </div>
+              Rodrigo Almeida
+            </a>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </nav>
+            {/* Desktop: menu + CTA juntos */}
+            <div className="hidden md:flex items-center gap-6">
+              <nav className="flex items-center gap-6">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="text-[15px] font-extrabold font-montserrat text-amber-900/90 hover:text-amber-900 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/98 backdrop-blur-lg border-b border-border animate-fade-in">
-            <div className="container-custom py-4 space-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="block px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div className="pt-4 px-4">
-                <Button
-                  className="w-full"
-                  onClick={() => {
-                    const element = document.querySelector('#contato');
-                    if (element) element.scrollIntoView({ behavior: 'smooth' });
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  Agendar aula
-                </Button>
-              </div>
+              <Button
+                onClick={goContato}
+                className="rounded-xl bg-rose-400 hover:bg-rose-500 text-white font-extrabold font-montserrat px-5"
+              >
+                Garantir minha vaga
+              </Button>
+            </div>
+
+            {/* Mobile: CTA + botão do menu (hamburguer) */}
+            <div className="flex md:hidden items-center">
+              <button
+                className="p-2 rounded-xl hover:bg-zinc-100 transition-colors text-amber-900"
+                onClick={() => setIsMobileMenuOpen((v) => !v)}
+                aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+              >
+                {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
             </div>
           </div>
-        )}
+
+          {/* Mobile menu dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-3 rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
+              <div className="py-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block px-5 py-3 text-sm font-extrabold font-montserrat text-amber-900/90 hover:bg-zinc-50"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+
+                <div className="px-5 pb-4 pt-2">
+                  <Button
+                    onClick={goContato}
+                    className="rounded-xl bg-rose-400 hover:bg-rose-500 text-white font-extrabold font-montserrat px-5"
+                  >
+                    Garantir minha vaga
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
