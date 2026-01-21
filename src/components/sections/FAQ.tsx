@@ -1,6 +1,7 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Minus } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { Plus } from 'lucide-react';
 
 const faqs = [
   {
@@ -45,88 +46,117 @@ const faqs = [
   },
 ];
 
-function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(' ');
-}
+const AccordionItem = ({
+  i,
+  expanded,
+  setExpanded,
+  question,
+  answer,
+}: {
+  i: number;
+  expanded: number | false;
+  setExpanded: (i: number | false) => void;
+  question: string;
+  answer: string;
+}) => {
+  const isOpen = i === expanded;
+
+  return (
+    <div className="border-b border-black/10 last:border-none">
+      <motion.button
+        initial={false}
+        onClick={() => setExpanded(isOpen ? false : i)}
+        className="flex w-full items-center justify-between py-6 text-left focus:outline-none group bg-transparent cursor-pointer"
+      >
+        <span
+          className={`text-lg font-medium transition-colors duration-300 ${
+            isOpen ? 'text-black' : 'text-black/70 group-hover:text-black'
+          }`}
+        >
+          {question}
+        </span>
+        <div className="relative flex items-center justify-center w-8 h-8">
+          <motion.span
+            animate={{ rotate: isOpen ? 90 : 0, opacity: isOpen ? 0 : 1 }}
+            transition={{ duration: 0.3 }}
+            className="absolute"
+          >
+            <Plus className="w-5 h-5 text-black/60 group-hover:text-black" />
+          </motion.span>
+          <motion.span
+            animate={{ rotate: isOpen ? 0 : -90, opacity: isOpen ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="absolute"
+          >
+            <Minus className="w-5 h-5 text-black group-hover:text-black" />
+          </motion.span>
+        </div>
+      </motion.button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.section
+            key={`content-${i}`}
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={{
+              open: { opacity: 1, height: 'auto' },
+              collapsed: { opacity: 0, height: 0 },
+            }}
+            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+            style={{ overflow: 'hidden' }} // Forçado inline para garantir
+          >
+            <div className="pb-6 pr-8 text-black/70 leading-relaxed text-base">
+              {answer}
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export function FAQ() {
+  const [expanded, setExpanded] = useState<number | false>(0);
   const [ref, isInView] = useInView<HTMLElement>();
 
   return (
-    <section id="faq" ref={ref} className="section-padding">
-      <div className="px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Título */}
-          <div className="text-center mb-10">
-            <h2
-              className={cn(
-                'font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-3 transition-all duration-700',
-                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              )}
-            >
-              FAQ
-            </h2>
-            <p
-              className={cn(
-                'text-base sm:text-lg text-muted-foreground transition-all duration-700 delay-100',
-                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              )}
-            >
-              Perguntas frequentes sobre as aulas
-            </p>
-          </div>
-
-          {/* Card único (igual ao print) */}
-          <div
-            className={cn(
-              'transition-all duration-700 delay-200',
+    <section id="faq" ref={ref} className="py-24 bg-white">
+      <div className="container px-4 mx-auto max-w-4xl">
+        <div className="text-center mb-16">
+          <h2
+            className={`font-display text-4xl md:text-5xl font-medium mb-4 transition-all duration-700 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            )}
+            }`}
           >
-            <div className="rounded-2xl bg-[#F6F1E3] overflow-hidden">
-              <AccordionPrimitive.Root type="single" collapsible>
-                {faqs.map((faq, index) => {
-                  const isLast = index === faqs.length - 1;
+            Perguntas Frequentes
+          </h2>
+          <p
+            className={`text-lg text-black/60 transition-all duration-700 delay-100 ${
+              isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            Tire suas dúvidas sobre as aulas e metodologia
+          </p>
+        </div>
 
-                  return (
-                    <AccordionPrimitive.Item
-                      key={index}
-                      value={`item-${index}`}
-                      className={cn(!isLast && 'border-b border-black/10')}
-                    >
-                      <AccordionPrimitive.Header>
-                        <AccordionPrimitive.Trigger
-                          className={cn(
-                            "group w-full", // 'group' é essencial aqui
-                            "flex items-center justify-between gap-6",
-                            "px-6 py-5 sm:px-7",
-                            "text-left",
-                            "text-[15px] sm:text-base",
-                            "font-semibold text-black",
-                            "outline-none",
-                            "hover:bg-black/[0.02] transition-colors"
-                          )}
-                        >
-                          <span>{faq.question}</span>
-                          <Plus
-                            className="h-5 w-5 shrink-0 text-black/60 transition-transform duration-300 ease-out group-data-[state=open]:rotate-45"
-                            aria-hidden="true"
-                          />
-                        </AccordionPrimitive.Trigger>
-                      </AccordionPrimitive.Header>
-
-                      <AccordionPrimitive.Content 
-                        className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
-                      >
-                        <div className="px-6 pb-5 sm:px-7 text-sm sm:text-[15px] leading-relaxed text-black/70">
-                          {faq.answer}
-                        </div>
-                      </AccordionPrimitive.Content>
-                    </AccordionPrimitive.Item>
-                  );
-                })}
-              </AccordionPrimitive.Root>
-            </div>
+        <div
+          className={`transition-all duration-700 delay-200 ${
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <div className="bg-[#F6F1E3]/50 backdrop-blur-sm rounded-3xl p-6 sm:p-10 border border-[#F6F1E3]">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                i={index}
+                expanded={expanded}
+                setExpanded={setExpanded}
+                question={faq.question}
+                answer={faq.answer}
+              />
+            ))}
           </div>
         </div>
       </div>

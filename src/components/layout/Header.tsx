@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 const navLinks = [
   { href: '#inicio', label: 'Home' },
   { href: '#sobre', label: 'Sobre mim' },
+  { href: '#metodologia', label: 'Metodologia' }, // Corrigido para português
   { href: '#faq', label: 'Dúvidas' },
   { href: '#contato', label: 'Contato' },
 ];
@@ -19,17 +20,25 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  // Função unificada de scroll com compensação do menu
+  const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      const headerOffset = 25; // Altura do header para não cobrir o título
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     setIsMobileMenuOpen(false);
   };
 
-  const goContato = () => {
-    const element = document.querySelector('#contato');
-    if (element) element.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false);
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    scrollToSection(href);
   };
 
   return (
@@ -73,10 +82,10 @@ export function Header() {
               </nav>
 
               <Button
-                onClick={goContato}
+                onClick={() => scrollToSection('#contato')}
                 className="rounded-xl bg-rose-400 hover:bg-rose-500 text-white font-extrabold font-montserrat px-5"
               >
-                Garantir minha vaga
+                Agendar aula
               </Button>
             </div>
 
@@ -109,7 +118,7 @@ export function Header() {
 
                 <div className="px-5 pb-4 pt-2">
                   <Button
-                    onClick={goContato}
+                    onClick={() => scrollToSection('#contato')}
                     className="rounded-xl bg-rose-400 hover:bg-rose-500 text-white font-extrabold font-montserrat px-5"
                   >
                     Garantir minha vaga
