@@ -1,35 +1,31 @@
 import { useInView } from '@/hooks/useInView';
 import { Button } from '@/components/ui/button';
-import { User, MessageCircle, Briefcase, GraduationCap, Clock, ArrowRight } from 'lucide-react';
+import { User, MessageCircle, Briefcase, GraduationCap, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const services = [
   {
     icon: User,
     title: 'Aulas particulares',
-    audience: 'Para quem quer atenção 100% focada nos seus objetivos',
-    duration: '50 min',
-    benefit: 'Evolução rápida com plano personalizado e feedback constante.',
+    audience: 'Quem busca foco total e personalização', // Texto levemente encurtado para caber na tag
+    benefit: 'Evolução rápida com plano 100% adaptado ao seu ritmo e objetivos específicos.',
   },
   {
     icon: MessageCircle,
     title: 'Conversação',
-    audience: 'Para quem já tem base e quer destravar a fala',
-    duration: '50 min',
-    benefit: 'Ganhe fluência e confiança em situações reais do dia a dia.',
+    audience: 'Quem já tem base e quer destravar',
+    benefit: 'Ganhe fluência, melhore a pronúncia e perca o medo de falar em situações reais.',
   },
   {
     icon: Briefcase,
-    title: 'Inglês para entrevistas e trabalho',
-    audience: 'Para profissionais que precisam do inglês na carreira',
-    duration: '50-60 min',
-    benefit: 'Prepare-se para entrevistas, reuniões e apresentações em inglês.',
+    title: 'Inglês para Carreira', // Mudei levemente o título
+    audience: 'Profissionais e preparação para entrevistas',
+    benefit: 'Domine o vocabulário corporativo para reuniões, apresentações e processos seletivos.',
   },
   {
     icon: GraduationCap,
-    title: 'Reforço escolar',
-    audience: 'Para estudantes que precisam de apoio acadêmico',
-    duration: '50 min',
-    benefit: 'Melhore suas notas e construa uma base sólida no idioma.',
+    title: 'Apoio Acadêmico',
+    audience: 'Estudantes (Escola ou Faculdade)',
+    benefit: 'Reforço escolar, preparação para provas e construção de uma base gramatical sólida.',
   },
 ];
 
@@ -45,23 +41,24 @@ export function Services() {
     <section
       id="aulas"
       ref={ref}
-      className="section-padding bg-background"
+      // Fundo branco (bg-white)
+      className="section-padding bg-white"
     >
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2
-            className={`font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-4 transition-all duration-700 ${
+            className={`font-display text-3xl sm:text-4xl lg:text-5xl font-medium mb-4 text-zinc-900 transition-all duration-700 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Classes
+            Formatos de aula
           </h2>
           <p
-            className={`text-lg text-muted-foreground transition-all duration-700 delay-100 ${
+            className={`text-lg text-zinc-600 transition-all duration-700 delay-100 ${
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Encontre o formato ideal para seus objetivos
+            Escolha a modalidade ideal para o seu momento
           </p>
         </div>
 
@@ -73,38 +70,45 @@ export function Services() {
           {services.map((service, index) => (
             <div
               key={service.title}
-              className="card-elevated p-6 lg:p-8 flex flex-col h-full"
+              // Card com borda cinza e hover shadow
+              className="group relative flex flex-col p-6 lg:p-8 rounded-2xl border border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-lg transition-all duration-300"
               style={{ transitionDelay: `${200 + index * 100}ms` }}
             >
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center shrink-0">
-                  <service.icon size={24} className="text-primary" />
+              {/* Header do Card */}
+              <div className="flex items-start gap-5 mb-6">
+                <div className="w-14 h-14 rounded-xl bg-zinc-50 border border-zinc-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+                  {/* Ícone Vermelho (Primary) */}
+                  <service.icon size={28} className="text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-display text-xl font-medium mb-1">{service.title}</h3>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Clock size={14} />
-                    <span>{service.duration}</span>
+                  <h3 className="font-display text-2xl font-semibold text-zinc-900 mb-2">
+                    {service.title}
+                  </h3>
+                  {/* Badge para substituir o relógio/duração */}
+                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-zinc-100 text-xs font-bold text-zinc-600 uppercase tracking-wide">
+                    {service.audience}
                   </div>
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground mb-3">
-                <span className="font-medium text-foreground">Para quem:</span> {service.audience}
-              </p>
+              {/* Corpo (Benefício) */}
+              <div className="mb-8 flex-grow">
+                <p className="text-zinc-600 leading-relaxed text-lg">
+                  {service.benefit}
+                </p>
+              </div>
 
-              <p className="text-muted-foreground mb-6 flex-grow">
-                {service.benefit}
-              </p>
-
-              <Button
-                variant="card"
-                className="w-full justify-between"
-                onClick={scrollToContact}
-              >
-                Quero saber mais
-                <ArrowRight size={16} />
-              </Button>
+              {/* Botão */}
+              <div className="mt-auto pt-6 border-t border-zinc-100">
+                <Button
+                  variant="ghost"
+                  className="w-full justify-between hover:bg-zinc-50 text-zinc-900 font-bold group-hover:text-primary transition-colors px-0 hover:px-4"
+                  onClick={scrollToContact}
+                >
+                  Saber mais
+                  <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
             </div>
           ))}
         </div>

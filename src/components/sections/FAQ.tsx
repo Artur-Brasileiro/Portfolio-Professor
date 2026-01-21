@@ -10,11 +10,6 @@ const faqs = [
       'Você pode começar do zero! As aulas são adaptadas ao seu nível atual, seja iniciante, intermediário ou avançado. Na primeira aula, fazemos um diagnóstico para entender exatamente onde você está e criar um plano personalizado.',
   },
   {
-    question: 'Tem aula experimental?',
-    answer:
-      'Sim! A primeira aula é uma aula experimental onde você conhece a metodologia, fazemos um diagnóstico do seu nível e definimos seus objetivos. Assim você pode decidir se o método funciona para você antes de fechar um pacote.',
-  },
-  {
     question: 'As aulas são online ou presenciais?',
     answer:
       'As aulas são 100% online, via Google Meet ou Zoom. Isso permite flexibilidade de horários e você pode ter aula de qualquer lugar. Se você está em [cidade] e prefere aulas presenciais, podemos conversar sobre essa possibilidade.',
@@ -32,7 +27,7 @@ const faqs = [
   {
     question: 'Como funciona o pagamento e os pacotes?',
     answer:
-      'Trabalho com pacotes mensais de 4 ou 8 aulas. O pagamento é feito no início de cada mês via Pix ou transferência bancária. Entro em contato com os valores após nossa conversa inicial para entender seus objetivos.',
+      'O pagamento é realizado via Pix, sempre antes da aula acontecer para confirmar o agendamento. O modelo é totalmente flexível: você escolhe se prefere pagar aula por aula (individual) ou fechar pacotes, da maneira que for melhor para o seu planejamento financeiro.',
   },
   {
     question: 'Posso remarcar uma aula?',
@@ -42,7 +37,7 @@ const faqs = [
   {
     question: 'Quais horários você atende?',
     answer:
-      'Atendo de segunda a sexta, geralmente entre 8h e 21h (horário de Brasília). Sábados podem ter disponibilidade limitada. Na nossa conversa inicial, alinhamos os melhores horários para você.',
+      'Para dúvidas e suporte no WhatsApp, o atendimento é 24 horas. Já para as aulas, tenho disponibilidade de domingo a domingo — basta consultarmos a agenda para encontrar o melhor horário para você.',
   },
 ];
 

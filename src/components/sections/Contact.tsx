@@ -139,7 +139,7 @@ export function Contact() {
                   </Button>
 
                   <a 
-                    href="mailto:rodrigoemail@gmail.com"
+                    href="mailto:rodrigoformalidades@gmail.com"
                     className="flex items-center gap-4 w-full p-5 rounded-md border border-input hover:bg-accent hover:text-accent-foreground transition-all group"
                   >
                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -148,7 +148,7 @@ export function Contact() {
                     <div className="text-left">
                       <div className="font-medium text-base">E-mail</div>
                       <div className="text-sm text-muted-foreground group-hover:text-primary/80 transition-colors">
-                        rodrigoemail@gmail.com
+                        rodrigoformalidades@gmail.com
                       </div>
                     </div>
                   </a>
