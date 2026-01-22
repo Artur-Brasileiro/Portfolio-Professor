@@ -161,14 +161,14 @@ export function Contact() {
                 </h3>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://www.instagram.com/rodrigoalmeidadc/"
                     className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md"
                     aria-label="Instagram"
                   >
                     <Instagram size={22} />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/rodrigo9188/"
                     className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md"
                     aria-label="LinkedIn"
                   >
