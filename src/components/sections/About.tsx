@@ -54,7 +54,7 @@ export function About() {
 
             <p>
               Também tenho facilidade com ferramentas digitais e pesquisa, o que me permite criar aulas bem estruturadas
-              e materiais atualizados, alinhados com situações do dia a dia, temas atuais e objetivos específicos de cada
+              e materiais atualizados, alinhados com <strong className="text-primary font-bold">situações do dia a dia</strong>, temas atuais e objetivos específicos de cada
               aluno.
             </p>
           </div>
