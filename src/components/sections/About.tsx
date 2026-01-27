@@ -41,7 +41,7 @@ export function About() {
             }`}
           >
             <p>
-              Olá! Sou <strong className="text-primary font-bold">Rodrigo Almeida</strong>, instrutor de inglês e estudante de Letras,
+              Olá! Sou <strong className="text-primary font-bold">Rodrigo Almeida</strong>, professor de inglês e estudante de Letras,
               com mais de <strong className="text-primary font-bold">4 anos de experiência</strong> ajudando alunos a evoluírem com
               clareza e segurança.
             </p>
