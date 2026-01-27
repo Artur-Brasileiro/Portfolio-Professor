@@ -40,7 +40,7 @@ export function Hero() {
                     className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-8 font-bold font-montserrat text-base shadow-sm"
                     onClick={() => scrollToSection('#contato')}
                   >
-                    Agendar aula experimental
+                    Agendar aula agora
                   </Button>
                   
                   {/* Botão Secundário: Branco com borda (Outline) */}
@@ -75,7 +75,7 @@ export function Hero() {
                   <div className="rounded-[24px] bg-white p-2 sm:p-3 shadow-sm border border-zinc-100">
                     <div className="relative overflow-hidden rounded-[20px] aspect-[4/5] sm:aspect-[5/6] bg-zinc-100">
                       <img
-                        src="professor.jpg"
+                        src="professor.jpeg"
                         alt="Professor"
                         className="absolute inset-0 h-full w-full object-cover"
                       />

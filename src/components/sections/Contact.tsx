@@ -54,7 +54,7 @@ export function Contact() {
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-              Pronto para destravar seu inglês? Vamos agendar sua aula experimental!
+              Pronto para destravar seu inglês? Vamos agendar sua aula agora mesmo!
             </p>
           </div>
 
