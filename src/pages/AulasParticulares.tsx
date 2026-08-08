@@ -7,8 +7,8 @@ export default function AulasParticulares() {
     <ServicePage
       title="Aulas Particulares"
       subtitle="MAIS POPULAR"
-      accentColor="bg-[#c47760]"
-      accentTextColor="text-[#c47760]"
+      accentColor="bg-[#2b6777]"
+      accentTextColor="text-[#2b6777]"
       icon={User}
       heroDescription="Evolução rápida com um plano 100% adaptado ao seu ritmo, seus objetivos e sua rotina. Aulas individuais onde o foco é todo seu."
       benefits={[
@@ -61,7 +61,7 @@ export default function AulasParticulares() {
         },
         {
           question: "Como funciona o pagamento?",
-          answer: "O pagamento é realizado via Pix, sempre antes da aula. Você escolhe se prefere pagar aula por aula ou fechar pacotes."
+          answer: "Aceito Pix e cartão de crédito (com taxa). O pagamento é feito antes da aula para confirmar o agendamento. Você escolhe se prefere pagar aula por aula ou fechar pacotes."
         },
         {
           question: "Posso remarcar uma aula?",

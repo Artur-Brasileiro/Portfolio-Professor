@@ -27,7 +27,7 @@ const faqs = [
   {
     question: 'Como funciona o pagamento e os pacotes?',
     answer:
-      'O pagamento é realizado via Pix, sempre antes da aula acontecer para confirmar o agendamento. O modelo é totalmente flexível: você escolhe se prefere pagar aula por aula (individual) ou fechar pacotes, da maneira que for melhor para o seu planejamento financeiro.',
+      'O pagamento é realizado via Pix ou cartão de crédito (com taxa), sempre antes da aula acontecer para confirmar o agendamento. O modelo é totalmente flexível: você escolhe se prefere pagar aula por aula (individual) ou fechar pacotes, da maneira que for melhor para o seu planejamento financeiro.',
   },
   {
     question: 'Posso remarcar uma aula?',

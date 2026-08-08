@@ -7,8 +7,8 @@ export default function Conversacao() {
     <ServicePage
       title="Conversação"
       subtitle="DESTRAVAR A FALA"
-      accentColor="bg-[#61689b]"
-      accentTextColor="text-[#61689b]"
+      accentColor="bg-[#d96548]"
+      accentTextColor="text-[#d96548]"
       icon={MessageCircle}
       heroDescription="Ganhe fluência, melhore a pronúncia e perca o medo de falar em situações reais. Aulas 100% focadas em colocar você para conversar."
       benefits={[

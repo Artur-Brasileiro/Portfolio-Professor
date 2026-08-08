@@ -7,8 +7,8 @@ export default function InglesCarreira() {
     <ServicePage
       title="Inglês para Carreira"
       subtitle="PROFISSIONAL"
-      accentColor="bg-[#788e6e]"
-      accentTextColor="text-[#788e6e]"
+      accentColor="bg-[#3d5a80]"
+      accentTextColor="text-[#3d5a80]"
       icon={Briefcase}
       heroDescription="Domine o vocabulário corporativo para reuniões, apresentações e processos seletivos. Preparação focada no que o mercado exige."
       benefits={[

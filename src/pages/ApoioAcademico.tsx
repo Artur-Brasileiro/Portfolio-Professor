@@ -7,8 +7,8 @@ export default function ApoioAcademico() {
     <ServicePage
       title="Apoio Acadêmico"
       subtitle="ESTUDANTES"
-      accentColor="bg-[#b08d57]"
-      accentTextColor="text-[#b08d57]"
+      accentColor="bg-[#c49a3c]"
+      accentTextColor="text-[#c49a3c]"
       icon={GraduationCap}
       heroDescription="Reforço escolar, preparação para provas e construção de uma base gramatical sólida. Ideal para estudantes do ensino médio e faculdade."
       benefits={[

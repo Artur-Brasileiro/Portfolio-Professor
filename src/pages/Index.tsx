@@ -34,7 +34,7 @@ const Index = () => {
             <span>RODRIGO</span>
             <span className="relative inline-block">
               <span className="relative z-10 px-3 py-1">ALMEIDA</span>
-              <span className="absolute inset-0 bg-primary/20 rounded-lg -rotate-2 z-0 scale-x-110 scale-y-125"></span>
+              <span className="absolute inset-0 bg-[#3b8ea5]/25 rounded-lg -rotate-2 z-0 scale-x-110 scale-y-125"></span>
             </span>
           </h1>
         </div>
@@ -59,12 +59,12 @@ const Index = () => {
             title="AULAS PARTICULARES"
             description="Evolução rápida com plano 100% adaptado ao seu ritmo e objetivos"
             icon={User}
-            bgColor="bg-[#c47760]"
+            bgColor="bg-[#2b6777]"
             textColor="text-white"
             tagBgColor="bg-white"
-            tagTextColor="text-[#c47760]"
+            tagTextColor="text-[#2b6777]"
             iconBgColor="bg-white"
-            iconColor="text-[#c47760]"
+            iconColor="text-[#2b6777]"
           />
 
           {/* Card 2 — Conversação */}
@@ -76,9 +76,9 @@ const Index = () => {
             icon={MessageCircle}
             bgColor="bg-white"
             textColor="text-gray-800"
-            tagBgColor="bg-[#61689b]"
+            tagBgColor="bg-[#d96548]"
             tagTextColor="text-white"
-            iconBgColor="bg-[#61689b]"
+            iconBgColor="bg-[#d96548]"
             iconColor="text-white"
           />
 
@@ -91,9 +91,9 @@ const Index = () => {
             icon={Briefcase}
             bgColor="bg-white"
             textColor="text-gray-800"
-            tagBgColor="bg-[#788e6e]"
+            tagBgColor="bg-[#3d5a80]"
             tagTextColor="text-white"
-            iconBgColor="bg-[#788e6e]"
+            iconBgColor="bg-[#3d5a80]"
             iconColor="text-white"
           />
 
@@ -106,9 +106,9 @@ const Index = () => {
             icon={GraduationCap}
             bgColor="bg-white"
             textColor="text-gray-800"
-            tagBgColor="bg-[#b08d57]"
+            tagBgColor="bg-[#c49a3c]"
             tagTextColor="text-white"
-            iconBgColor="bg-[#b08d57]"
+            iconBgColor="bg-[#c49a3c]"
             iconColor="text-white"
           />
         </div>
