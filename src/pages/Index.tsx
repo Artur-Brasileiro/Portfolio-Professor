@@ -1,166 +1,175 @@
-import { GraduationCap, User, MessageCircle, Briefcase, Instagram, Linkedin, Mail, ArrowRight } from 'lucide-react';
-import { LinkCard } from '@/components/LinkCard';
+import { Instagram, Linkedin, Mail } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ServiceRow } from "@/components/ServiceRow";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Ornament } from "@/components/Ornament";
+import { PROFESSOR, SERVICES, HOME_WHATSAPP_MESSAGE } from "@/lib/site";
+import { EASE_OUT } from "@/lib/motion";
+
+const SOCIALS = [
+  { href: PROFESSOR.instagram, icon: Instagram, label: "Instagram", external: true },
+  { href: PROFESSOR.linkedin, icon: Linkedin, label: "LinkedIn", external: true },
+  { href: `mailto:${PROFESSOR.email}`, icon: Mail, label: "E-mail", external: false },
+];
 
 const Index = () => {
-  const whatsappUrl = 'https://wa.me/5581998649500?text=' + encodeURIComponent('Olá! Gostaria de saber mais sobre as aulas de inglês.');
+  const reduce = useReducedMotion();
+
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduce ? 0 : 0.055, delayChildren: 0.05 } },
+  };
+
+  const block = reduce
+    ? { hidden: { opacity: 1 }, show: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 14 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT } },
+      };
+
+  /*
+   * A capa entra só com opacidade, num tempo mais longo que os demais blocos.
+   * Sem `scale`: a foto sangra na largura toda, então qualquer zoom a faria
+   * transbordar a viewport e criar rolagem horizontal no celular.
+   */
+  const photo = reduce
+    ? { hidden: { opacity: 1 }, show: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0 },
+        show: { opacity: 1, transition: { duration: 0.85, ease: EASE_OUT } },
+      };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden flex flex-col items-center py-10 px-4 sm:px-6">
-      
-      {/* Decorative background dots */}
-      <div className="absolute top-16 left-8 w-3 h-3 rounded-full bg-emerald-400/60"></div>
-      <div className="absolute top-32 right-12 w-4 h-4 rounded-full bg-blue-400/50"></div>
-      <div className="absolute bottom-60 left-16 w-3 h-3 rounded-full bg-amber-400/50"></div>
-      <div className="absolute bottom-32 right-8 w-5 h-5 rounded-full bg-rose-400/40"></div>
-      <div className="absolute top-1/2 left-6 w-3 h-3 rounded-sm bg-violet-400/40 rotate-45"></div>
-
-      {/* Main Content Container */}
-      <div className="w-full max-w-md mx-auto z-10 flex flex-col items-center">
-        
-        {/* Profile Picture */}
-        <div className="relative mb-8 animate-fade-up">
-          <div className="w-36 h-36 rounded-full border-4 border-gray-800 overflow-hidden neo-shadow bg-white z-10 relative">
-            <img 
-              src="professor.jpeg" 
-              alt="Rodrigo Almeida - Professor de Inglês" 
-              className="w-full h-full object-cover"
-            />
+    <main className="min-h-dvh safe-top">
+      <motion.div
+        className="column pb-14 pt-12"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
+        {/* ── Capa ────────────────────────────────────────────── */}
+        <motion.header variants={block}>
+          <div className="flex items-center gap-3">
+            <span className="h-px w-7 shrink-0 bg-brass" aria-hidden="true" />
+            <p className="kicker text-brass-ink">{PROFESSOR.role}</p>
           </div>
-        </div>
+        </motion.header>
 
-        {/* Name Title */}
-        <div className="text-center mb-3 animate-fade-up animation-delay-100">
-          <h1 className="text-4xl sm:text-5xl font-display font-black tracking-tight flex items-center justify-center flex-wrap gap-2 text-gray-800">
-            <span>RODRIGO</span>
-            <span className="relative inline-block">
-              <span className="relative z-10 px-3 py-1">ALMEIDA</span>
-              <span className="absolute inset-0 bg-[#3b8ea5]/25 rounded-lg -rotate-2 z-0 scale-x-110 scale-y-125"></span>
+        <motion.div variants={block} className="mt-6">
+          {/*
+            A foto sangra até as bordas da coluna (-mx-6 anula o padding) e
+            dissolve no papel. `isolate` prende a mesclagem do banho de latão
+            dentro da moldura, sem vazar para a página.
+          */}
+          <motion.div
+            variants={photo}
+            className="photo-bleed relative -mx-6 aspect-[4/5] isolate overflow-hidden"
+          >
+            <img
+              src={PROFESSOR.photo}
+              alt={`${PROFESSOR.name}, professor de inglês`}
+              fetchPriority="high"
+              className="photo-tone absolute h-auto max-w-none"
+              style={{
+                width: PROFESSOR.photoCrop.zoom,
+                left: PROFESSOR.photoCrop.x,
+                top: PROFESSOR.photoCrop.y,
+              }}
+            />
+            <span
+              className="absolute inset-0 bg-brass/10 mix-blend-multiply"
+              aria-hidden="true"
+            />
+          </motion.div>
+
+          {/* O nome sobe por cima da dissolvida — o gesto de capa de revista. */}
+          <h1 className="relative -mt-24 font-display text-[clamp(3rem,15vw,3.75rem)] leading-[0.92] tracking-[-0.035em]">
+            <span className="block font-normal text-ink">{PROFESSOR.firstName}</span>
+            <span className="block font-semibold italic text-brass-ink">
+              {PROFESSOR.lastName}
             </span>
           </h1>
-        </div>
+        </motion.div>
 
-        {/* Subtitle */}
-        <div className="text-center mb-10 animate-fade-up animation-delay-200">
-          <p className="text-lg text-gray-600 font-medium mb-1">
-            Professor de inglês · Foco em conversação
+        <motion.div variants={block} className="mt-6">
+          <p className="text-lede text-ink-muted">
+            Você fala <span className="ink-underline text-ink">desde a primeira aula</span>.
+            Sem decoreba, sem vergonha, no seu ritmo.
           </p>
-          <p className="text-gray-500 font-medium text-lg">
-            Escolha por onde começar 👇
+
+          <ul className="kicker mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-muted">
+            {["100% online", "Do zero ao avançado", "Pix ou cartão"].map((fact, i) => (
+              <li key={fact} className="flex items-center gap-3">
+                {i > 0 && (
+                  <span className="h-1 w-1 rotate-45 bg-brass" aria-hidden="true" />
+                )}
+                {fact}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        {/* ── Índice de serviços ──────────────────────────────── */}
+        <motion.section variants={block} className="mt-12" aria-labelledby="indice">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 id="indice" className="kicker font-body text-ink-muted">
+              Escolha por onde começar
+            </h2>
+            <span className="numeral text-caption text-rule-strong" aria-hidden="true">
+              04
+            </span>
+          </div>
+          <hr className="rule-line-strong mt-3" />
+
+          <motion.ol variants={container} initial="hidden" animate="show">
+            {SERVICES.map((service, i) => (
+              <ServiceRow
+                key={service.slug}
+                service={service}
+                last={i === SERVICES.length - 1}
+              />
+            ))}
+          </motion.ol>
+          <hr className="rule-line-strong" />
+        </motion.section>
+
+        {/* ── Chamada principal ───────────────────────────────── */}
+        <motion.section variants={block} className="mt-10">
+          <WhatsAppButton message={HOME_WHATSAPP_MESSAGE} />
+          <p className="mt-3 text-center text-caption text-ink-muted">
+            Sem compromisso · Pix ou cartão · Remarque com 24h de antecedência
           </p>
-        </div>
+        </motion.section>
 
-        {/* Links Section */}
-        <div className="w-full space-y-5 animate-fade-up animation-delay-300">
-          
-          {/* Card 1 — Aulas Particulares (destaque principal) */}
-          <LinkCard
-            href="/aulas-particulares"
-            tagText="MAIS POPULAR"
-            title="AULAS PARTICULARES"
-            description="Evolução rápida com plano 100% adaptado ao seu ritmo e objetivos"
-            icon={User}
-            bgColor="bg-[#2b6777]"
-            textColor="text-white"
-            tagBgColor="bg-white"
-            tagTextColor="text-[#2b6777]"
-            iconBgColor="bg-white"
-            iconColor="text-[#2b6777]"
-          />
+        {/* ── Contatos ────────────────────────────────────────── */}
+        <motion.nav variants={block} className="mt-12" aria-label="Redes e contato">
+          <hr className="rule-line" />
+          <ul className="grid grid-cols-3">
+            {SOCIALS.map(({ href, icon: Icon, label, external }) => (
+              <li key={label} className="border-r border-rule last:border-r-0">
+                <a
+                  href={href}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="press tap-44 flex flex-col items-center justify-center gap-1.5 py-4"
+                >
+                  <Icon className="h-[18px] w-[18px] text-ink" strokeWidth={1.75} aria-hidden="true" />
+                  <span className="kicker text-ink-muted">{label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <hr className="rule-line" />
+        </motion.nav>
 
-          {/* Card 2 — Conversação */}
-          <LinkCard
-            href="/conversacao"
-            tagText="DESTRAVAR A FALA"
-            title="CONVERSAÇÃO"
-            description="Ganhe fluência, melhore a pronúncia e perca o medo de falar em situações reais"
-            icon={MessageCircle}
-            bgColor="bg-white"
-            textColor="text-gray-800"
-            tagBgColor="bg-[#d96548]"
-            tagTextColor="text-white"
-            iconBgColor="bg-[#d96548]"
-            iconColor="text-white"
-          />
-
-          {/* Card 3 — Inglês para Carreira */}
-          <LinkCard
-            href="/ingles-carreira"
-            tagText="PROFISSIONAL"
-            title="INGLÊS PARA CARREIRA"
-            description="Domine o vocabulário corporativo para reuniões, apresentações e entrevistas"
-            icon={Briefcase}
-            bgColor="bg-white"
-            textColor="text-gray-800"
-            tagBgColor="bg-[#3d5a80]"
-            tagTextColor="text-white"
-            iconBgColor="bg-[#3d5a80]"
-            iconColor="text-white"
-          />
-
-          {/* Card 4 — Apoio Acadêmico */}
-          <LinkCard
-            href="/apoio-academico"
-            tagText="ESTUDANTES"
-            title="APOIO ACADÊMICO"
-            description="Reforço escolar, provas e construção de uma base gramatical sólida"
-            icon={GraduationCap}
-            bgColor="bg-white"
-            textColor="text-gray-800"
-            tagBgColor="bg-[#c49a3c]"
-            tagTextColor="text-white"
-            iconBgColor="bg-[#c49a3c]"
-            iconColor="text-white"
-          />
-        </div>
-
-        {/* WhatsApp CTA Button */}
-        <div className="w-full max-w-lg mx-auto mt-8 animate-fade-up animation-delay-400">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 w-full py-4 px-6 rounded-2xl border-[3px] border-gray-800 neo-shadow bg-[#25D366] text-white font-bold text-lg transition-transform hover:scale-[0.98]"
-          >
-            <MessageCircle className="w-6 h-6" />
-            Agendar aula no WhatsApp
-          </a>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex items-center gap-4 mt-10 animate-fade-up animation-delay-500">
-          <a
-            href="https://www.instagram.com/rodrigoalmeidadc/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-xl border-[3px] border-gray-800 bg-white flex items-center justify-center hover:bg-pink-50 transition-colors neo-shadow"
-            aria-label="Instagram"
-          >
-            <Instagram className="w-5 h-5 text-gray-800" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/rodrigo9188/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-xl border-[3px] border-gray-800 bg-white flex items-center justify-center hover:bg-blue-50 transition-colors neo-shadow"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-5 h-5 text-gray-800" />
-          </a>
-          <a
-            href="mailto:rodrigoformalidades@gmail.com"
-            className="w-12 h-12 rounded-xl border-[3px] border-gray-800 bg-white flex items-center justify-center hover:bg-red-50 transition-colors neo-shadow"
-            aria-label="E-mail"
-          >
-            <Mail className="w-5 h-5 text-gray-800" />
-          </a>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-10 text-center text-gray-400 text-sm font-medium">
-          <p>© {new Date().getFullYear()} Rodrigo Almeida. Todos os direitos reservados.</p>
-        </div>
-      </div>
-    </div>
+        {/* ── Colofão ─────────────────────────────────────────── */}
+        <motion.footer variants={block} className="mt-12 text-center">
+          <Ornament />
+          <p className="mt-5 text-caption text-ink-muted">
+            © {new Date().getFullYear()} {PROFESSOR.name}
+          </p>
+        </motion.footer>
+      </motion.div>
+    </main>
   );
 };
 

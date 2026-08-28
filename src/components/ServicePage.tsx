@@ -1,178 +1,236 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { LucideIcon, Quote, Plus, Minus, MessageCircle, ArrowLeft } from 'lucide-react';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, Minus, Plus, type LucideIcon } from "lucide-react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { Ornament } from "@/components/Ornament";
+import { PROFESSOR, type ServiceEntry } from "@/lib/site";
+import { EASE_OUT } from "@/lib/motion";
 
 interface ServicePageProps {
-  title: string;
-  subtitle: string;
-  accentColor: string;
-  accentTextColor: string;
-  icon: LucideIcon;
+  service: ServiceEntry;
   heroDescription: string;
   benefits: { icon: LucideIcon; title: string; description: string }[];
-  howItWorks: { step: string; title: string; description: string }[];
+  howItWorks: { title: string; description: string }[];
   testimonial: { name: string; context: string; text: string };
   faqs: { question: string; answer: string }[];
-  whatsappMessage: string;
+}
+
+/** Antetítulo de seção: rótulo em caixa alta sobre filete forte. */
+function SectionHead({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <>
+      <h2 id={id} className="kicker font-body text-ink-muted">
+        {children}
+      </h2>
+      <hr className="rule-line-strong mt-3" />
+    </>
+  );
 }
 
 export default function ServicePage({
-  title,
-  subtitle,
-  accentColor,
-  accentTextColor,
-  icon: Icon,
+  service,
   heroDescription,
   benefits,
   howItWorks,
   testimonial,
   faqs,
-  whatsappMessage
 }: ServicePageProps) {
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [showBar, setShowBar] = useState(false);
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
 
-  const toggleFaq = (index: number) => {
-    setOpenFaqIndex(openFaqIndex === index ? null : index);
-  };
+  // A barra fixa só entra depois que o leitor passa da abertura do artigo.
+  useMotionValueEvent(scrollY, "change", (y) => setShowBar(y > 420));
 
-  const whatsappUrl = `https://wa.me/5581998649500?text=${encodeURIComponent(whatsappMessage)}`;
+  const { ordinal, title, kicker, accent, whatsappMessage, icon: ServiceIcon } = service;
 
   return (
-    <div className="min-h-screen bg-background font-sans text-gray-900 selection:bg-black selection:text-white pb-20">
-      <div className="max-w-2xl mx-auto pt-10 px-4 animate-fade-up">
-        
-        {/* Back Button */}
-        <Link 
-          to="/" 
-          className="inline-flex items-center gap-2 font-medium hover:underline mb-12 transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span>Voltar</span>
-        </Link>
+    <main className="safe-top min-h-dvh pb-28" style={{ ["--accent-ink" as string]: accent }}>
+      <div className="column pt-8">
+        {/* Navegação */}
+        <nav>
+          <Link
+            to="/"
+            className="press tap-44 -ml-2 inline-flex items-center gap-2 rounded-sm px-2 py-2 text-ink-muted"
+          >
+            <ArrowLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            <span className="kicker">Voltar</span>
+          </Link>
+        </nav>
 
-        {/* Hero */}
-        <header className="mb-16">
-          <div className="flex items-start gap-6">
-            <div className={`shrink-0 w-20 h-20 rounded-2xl border-[3px] border-gray-800 neo-shadow flex items-center justify-center ${accentColor}`}>
-              <Icon size={40} className="text-white" strokeWidth={2.5} />
-            </div>
-            <div>
-              <span className={`inline-block px-3 py-1 text-sm font-bold tracking-wider rounded-full border-2 border-gray-800 mb-3 bg-white ${accentTextColor}`}>
-                {subtitle}
-              </span>
-              <h1 className="font-display text-4xl md:text-5xl font-black tracking-tight leading-tight mb-4">
-                {title}
-              </h1>
-            </div>
+        {/* Abertura do artigo */}
+        <header className="mt-6">
+          <div className="flex items-center gap-3">
+            <span className="numeral text-caption text-[hsl(var(--accent-ink))]" aria-hidden="true">
+              {ordinal}
+            </span>
+            <span
+              className="h-px w-6 bg-[hsl(var(--accent-ink))] opacity-40"
+              aria-hidden="true"
+            />
+            <span className="kicker text-[hsl(var(--accent-ink))]">{kicker}</span>
+            <ServiceIcon
+              className="ml-auto h-6 w-6 text-[hsl(var(--accent-ink))] opacity-70"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
           </div>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mt-6 font-medium">
-            {heroDescription}
-          </p>
+
+          <h1 className="mt-5 font-display text-display-sm font-semibold">{title}</h1>
+
+          <p className="drop-cap mt-5 text-lede text-ink-muted">{heroDescription}</p>
         </header>
 
-        {/* Benefits */}
-        <section className="mb-16">
-          <h2 className="font-display text-2xl font-bold mb-6 flex items-center gap-2">
-            Por que escolher?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {benefits.map((benefit, i) => (
-              <div key={i} className="bg-white border-[3px] border-gray-800 rounded-2xl p-5 neo-shadow hover:-translate-y-1 transition-transform">
-                <benefit.icon size={28} className={`mb-4 ${accentTextColor}`} />
-                <h3 className="font-bold text-lg mb-2 leading-tight">{benefit.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{benefit.description}</p>
-              </div>
+        {/* Benefícios */}
+        <section className="mt-12" aria-labelledby="beneficios">
+          <SectionHead id="beneficios">Por que escolher</SectionHead>
+          <ul className="divide-y divide-rule">
+            {benefits.map(({ icon: Icon, title: benefitTitle, description }) => (
+              <li key={benefitTitle} className="grid grid-cols-[2.25rem_1fr] gap-x-4 py-5">
+                <Icon
+                  className="mt-1 h-5 w-5 text-[hsl(var(--accent-ink))]"
+                  strokeWidth={1.5}
+                  aria-hidden="true"
+                />
+                <div>
+                  <h3 className="font-display text-title-sm font-semibold">{benefitTitle}</h3>
+                  <p className="mt-1.5 text-caption text-ink-muted">{description}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
+          <hr className="rule-line-strong" />
         </section>
 
-        {/* How it works */}
-        <section className="mb-16">
-          <h2 className="font-display text-2xl font-bold mb-8">Como funciona</h2>
-          <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-            {howItWorks.map((item, i) => (
-              <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full border-[3px] border-gray-800 bg-white font-bold shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 neo-shadow z-10">
-                  0{i + 1}
+        {/* Como funciona */}
+        <section className="mt-12" aria-labelledby="como-funciona">
+          <SectionHead id="como-funciona">Como funciona</SectionHead>
+          <ol className="divide-y divide-rule">
+            {howItWorks.map((step, i) => (
+              <li key={step.title} className="grid grid-cols-[2.25rem_1fr] gap-x-4 py-5">
+                <span
+                  className="numeral pt-0.5 text-title-sm leading-none text-[hsl(var(--accent-ink))]"
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-display text-title-sm font-semibold">{step.title}</h3>
+                  <p className="mt-1.5 text-caption text-ink-muted">{step.description}</p>
                 </div>
-                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-5 rounded-2xl border-[3px] border-gray-800 neo-shadow">
-                  <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                  <p className="text-gray-600 text-sm">{item.description}</p>
-                </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
+          <hr className="rule-line-strong" />
         </section>
 
-        {/* Testimonial */}
-        <section className="mb-16">
-          <div className={`rounded-2xl border-[3px] border-gray-800 p-6 md:p-8 neo-shadow relative bg-white`}>
-            <div className={`absolute -top-5 -right-5 w-12 h-12 rounded-full border-[3px] border-gray-800 flex items-center justify-center neo-shadow ${accentColor}`}>
-              <Quote size={20} className="text-white fill-current" />
-            </div>
-            <p className="text-lg md:text-xl font-medium italic mb-6 text-gray-800 relative z-10">
-              "{testimonial.text}"
+        {/* Citação em destaque */}
+        <figure className="mt-12">
+          <span className="block font-display text-[3rem] leading-[0.6] text-brass" aria-hidden="true">
+            &ldquo;
+          </span>
+          <blockquote className="mt-4">
+            <p className="font-display text-[1.3125rem] italic leading-[1.45] text-ink">
+              {testimonial.text}
             </p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-gray-800 flex items-center justify-center overflow-hidden shrink-0">
-                <div className="w-full h-full bg-slate-300" />
-              </div>
-              <div>
-                <p className="font-bold text-gray-900 leading-tight">{testimonial.name}</p>
-                <p className="text-sm text-gray-500 font-medium">{testimonial.context}</p>
-              </div>
-            </div>
-          </div>
-        </section>
+          </blockquote>
+          <figcaption className="kicker mt-5 text-ink-muted">
+            {testimonial.name} · {testimonial.context}
+          </figcaption>
+          <hr className="rule-line mt-7" />
+        </figure>
 
-        {/* FAQ */}
-        <section className="mb-16">
-          <h2 className="font-display text-2xl font-bold mb-6">Perguntas Frequentes</h2>
-          <div className="space-y-3">
+        {/* Perguntas frequentes */}
+        <section className="mt-12" aria-labelledby="faq">
+          <SectionHead id="faq">Perguntas frequentes</SectionHead>
+          <ul className="divide-y divide-rule">
             {faqs.map((faq, i) => {
-              const isOpen = openFaqIndex === i;
+              const isOpen = openFaq === i;
+              const panelId = `faq-panel-${i}`;
               return (
-                <div key={i} className="bg-white border-[3px] border-gray-800 rounded-2xl overflow-hidden neo-shadow transition-colors">
-                  <button 
-                    onClick={() => toggleFaq(i)}
-                    className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 font-bold text-gray-900 hover:bg-gray-50 focus:outline-none"
-                  >
-                    <span>{faq.question}</span>
-                    <span className={`shrink-0 w-8 h-8 flex items-center justify-center rounded-full border-2 border-gray-800 ${isOpen ? accentColor : 'bg-white'}`}>
-                      {isOpen ? <Minus size={16} className={isOpen ? 'text-white' : 'text-gray-900'} /> : <Plus size={16} className="text-gray-900" />}
-                    </span>
-                  </button>
-                  <div 
-                    className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
-                  >
-                    <div className="px-5 pb-5 text-gray-600">
-                      {faq.answer}
-                    </div>
-                  </div>
-                </div>
+                <li key={faq.question}>
+                  <h3>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      className="press tap-44 flex w-full items-start justify-between gap-4 rounded-sm py-5 text-left"
+                    >
+                      <span className="font-display text-title-sm font-semibold text-ink">
+                        {faq.question}
+                      </span>
+                      <span className="mt-0.5 shrink-0 text-[hsl(var(--accent-ink))]">
+                        {isOpen ? (
+                          <Minus className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden="true" />
+                        ) : (
+                          <Plus className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden="true" />
+                        )}
+                      </span>
+                    </button>
+                  </h3>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={panelId}
+                        initial={reduce ? false : { height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                        transition={{ duration: 0.26, ease: EASE_OUT }}
+                        className="overflow-hidden"
+                      >
+                        <p className="pb-5 pr-8 text-caption text-ink-muted">{faq.answer}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
               );
             })}
-          </div>
+          </ul>
+          <hr className="rule-line-strong" />
         </section>
 
-        {/* CTA */}
-        <section className="mb-12 flex justify-center">
-          <a 
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 w-full md:w-auto bg-[#25D366] text-white font-bold text-lg md:text-xl px-8 py-5 rounded-2xl border-[3px] border-gray-800 neo-shadow hover:-translate-y-1 hover:neo-shadow-lg transition-all active:translate-y-1 active:neo-shadow-none"
-          >
-            <MessageCircle size={28} />
-            <span>Falar pelo WhatsApp</span>
-          </a>
+        {/* Chamada principal */}
+        <section className="mt-12">
+          <WhatsAppButton message={whatsappMessage} />
+          <p className="mt-3 text-center text-caption text-ink-muted">
+            Sem compromisso · Pix ou cartão · Remarque com 24h de antecedência
+          </p>
         </section>
 
-        {/* Footer */}
-        <footer className="text-center text-gray-500 text-sm font-medium">
-          © {new Date().getFullYear()} Rodrigo Almeida
+        {/* Colofão */}
+        <footer className="mt-12 text-center">
+          <Ornament />
+          <p className="mt-5 text-caption text-ink-muted">
+            © {new Date().getFullYear()} {PROFESSOR.name}
+          </p>
         </footer>
       </div>
-    </div>
+
+      {/* Barra fixa de conversão — entra depois da abertura, respeita a safe area */}
+      <AnimatePresence>
+        {showBar && (
+          <motion.div
+            initial={reduce ? { opacity: 0 } : { y: "100%" }}
+            animate={reduce ? { opacity: 1 } : { y: 0 }}
+            exit={reduce ? { opacity: 0 } : { y: "100%" }}
+            transition={{ duration: 0.28, ease: EASE_OUT }}
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-rule-strong bg-paper/95 backdrop-blur-sm"
+          >
+            <div className="column safe-bottom pt-3">
+              <WhatsAppButton message={whatsappMessage} label={`Falar sobre ${title}`} compact />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
