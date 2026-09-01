@@ -199,11 +199,15 @@
   }
 
   /*
-   * Tom de papel: puxa a foto para o latão da paleta e derruba o laranja da
-   * iluminação do salão, que competia com o rosto. Reversível: apague o filtro.
+   * Tom da capa: a foto continua COLORIDA — pele com sangue, não sépia.
+   * O sepia(0.55) anterior drenava o rosto e dava ar de retrato de arquivo.
+   * Aqui só se corrige o que a foto tinha de ruim: luz de salão chapada.
+   *   saturate  → devolve cor à pele e ao fundo
+   *   contrast  → recupera o volume que o estouro da luz branca comeu
+   *   sepia .06 → dose homeopática, só para a foto conversar com o papel
    */
   .photo-tone {
-    filter: sepia(0.55) saturate(0.9) contrast(1.12) brightness(1.02);
+    filter: saturate(1.12) contrast(1.08) brightness(1.01) sepia(0.06);
   }
 
   /* Numerais de índice em versalete serifado. */

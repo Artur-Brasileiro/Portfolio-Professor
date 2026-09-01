@@ -43,11 +43,23 @@ export function ServiceRow({ service, last = false }: ServiceRowProps) {
           <span className="mt-1.5 block text-caption text-ink-muted">{blurb}</span>
         </span>
 
-        <ArrowRight
-          className="mt-1 h-[18px] w-[18px] shrink-0 text-rule-strong transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--accent-ink))]"
-          strokeWidth={1.75}
+        {/*
+          A seta era `text-rule-strong`: #C9BFAD sobre papel #F7F3EC dá 1.6:1
+          — decoração, não sinal, justo no único elemento que diz "isto abre".
+          Agora é um alvo de 36px com filete e seta na tinta do acento. Em
+          repouso — o único estado que existe no celular — a seta fica entre
+          4.7:1 e 7.3:1 e o filete entre 5.2:1 e 8.3:1. Hover e toque enchem
+          o disco de acento sólido e a seta vira papel.
+        */}
+        <span
+          className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[hsl(var(--accent-ink))] bg-[hsl(var(--accent-ink)/0.08)] text-[hsl(var(--accent-ink))] transition-colors duration-200 group-hover:bg-[hsl(var(--accent-ink))] group-hover:text-paper group-active:bg-[hsl(var(--accent-ink))] group-active:text-paper"
           aria-hidden="true"
-        />
+        >
+          <ArrowRight
+            className="h-[17px] w-[17px] transition-transform duration-200 group-hover:translate-x-[1px]"
+            strokeWidth={2}
+          />
+        </span>
       </Link>
 
       {!last && <hr className="rule-line" />}

@@ -58,8 +58,8 @@ const Index = () => {
         <motion.div variants={block} className="mt-6">
           {/*
             A foto sangra até as bordas da coluna (-mx-6 anula o padding) e
-            dissolve no papel. `isolate` prende a mesclagem do banho de latão
-            dentro da moldura, sem vazar para a página.
+            dissolve no papel. `isolate` prende as mesclagens da capa dentro
+            da moldura, sem vazar para a página.
           */}
           <motion.div
             variants={photo}
@@ -76,8 +76,21 @@ const Index = () => {
                 top: PROFESSOR.photoCrop.y,
               }}
             />
+            {/*
+              Vinheta suave: o salão do fundo tem gente, lustre e paredes
+              claras disputando atenção. Escurecer só as bordas devolve o
+              rosto ao centro sem tocar na cor da pele.
+            */}
             <span
-              className="absolute inset-0 bg-brass/10 mix-blend-multiply"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(100%_72%_at_50%_34%,transparent_35%,hsl(var(--ink)/0.30)_100%)]"
+              aria-hidden="true"
+            />
+            {/*
+              Banho de latão homeopático (era 10% e amarelava o rosto): só o
+              suficiente para a foto pertencer à paleta do papel.
+            */}
+            <span
+              className="pointer-events-none absolute inset-0 bg-brass/[0.04] mix-blend-multiply"
               aria-hidden="true"
             />
           </motion.div>
